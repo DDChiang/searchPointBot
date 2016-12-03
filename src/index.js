@@ -158,6 +158,7 @@ const toggleAccount = async () => {
 async function go(configList) {
   if (!config.length) {
     return;
+    driver.quit();
   }
 
   const currConfig = configList.shift();
@@ -170,5 +171,3 @@ async function go(configList) {
 };
 
 go(config);
-
-driver.quit();

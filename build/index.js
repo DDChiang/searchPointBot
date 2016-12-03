@@ -2,6 +2,7 @@ let go = (() => {
   var _ref6 = _asyncToGenerator(function* (configList) {
     if (!config.length) {
       return;
+      driver.quit();
     }
 
     const currConfig = configList.shift();
@@ -206,5 +207,3 @@ const toggleAccount = (() => {
 ;
 
 go(config);
-
-// driver.quit();
