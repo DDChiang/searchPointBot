@@ -44,7 +44,7 @@ if (mobile) {
 
 const driver = new webdriver.Builder().forBrowser('chrome').withCapabilities(capabilities).build();
 
-const config = require('./appConfig');
+const config = require('./userConfig');
 const selectors = {
   emailInput: 'input[type="email"]',
   submitInput: 'input[type="submit"]',

@@ -25,7 +25,7 @@ const driver = new webdriver.Builder()
     .withCapabilities(capabilities)
     .build();
 
-const config = require('./appConfig/.config');
+const config = require('./userConfig');
 const selectors = {
   emailInput: 'input[type="email"]',
   submitInput: 'input[type="submit"]',
