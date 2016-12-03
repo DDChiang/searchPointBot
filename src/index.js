@@ -44,9 +44,9 @@ const selectors = {
 }
 
 const mobileSelectors = {
-    emailInput: 'input[type="email"]',
-    submitInput: 'input[type="submit"]',
-    passwordInput: 'input[type="password"].form-control',
+    // emailInput: 'input[type="email"]',
+    // submitInput: 'input[type="submit"]',
+    // passwordInput: 'input[type="password"].form-control',
     // similarities end here
     menu: '#mHamburger',
     accountBttn: '#HBSignIn #hb_n',
@@ -121,7 +121,7 @@ const bingSearch = async () => { // still looking for old
   console.log('presearch');
   clickElem(selectors.searchInput);
 
-  await search(30);
+  await search(25);
 }
 
 const search = async (count) => {
@@ -152,7 +152,8 @@ const toggleAccount = async () => {
   clickElem(selectors.toggleAccountBttn);
 
   const signInBttn = await driver.wait(elemLocated(selectors.accountSignInBttn), 3000);
-  await driver.wait(elemVisible(signInBttn), 2000);
+  await driver.wait(elemVisible(signInBttn), 7000);
+  console.log('fresh!');
 };
 
 async function go(configList) {
