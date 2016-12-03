@@ -171,4 +171,4 @@ async function go(configList) {
 
 go(config);
 
-// driver.quit();
+driver.quit();
