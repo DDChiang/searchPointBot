@@ -1,2 +1,8 @@
 node_modules
 src/userConfig/index.js
+
+# exclude everything inside build
+build/*
+
+# exception to the rule (build folder)
+!build/.gitkeep
