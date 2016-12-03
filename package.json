@@ -1,0 +1,21 @@
+{
+  "name": "selenium-test",
+  "version": "1.0.0",
+  "description": "basic browser automation",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel src --out-dir build",
+    "start": "npm run babel && node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DDChiang",
+  "license": "ISC",
+  "dependencies": {
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "selenium-webdriver": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2017": "^6.16.0"
+  }
+}

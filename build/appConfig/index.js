@@ -1,0 +1,1 @@
+module.exports = [{ login: 'ddeesongs@gmail.com', password: 'bd3emstang!' }, { login: 'dchiang@cmginc.com', password: 'bd3emstang' }, { login: 'ddeechng@gmail.com', password: 'md3emstang' }, { login: 'ddeephotos@gmail.com', password: 'bd3emstang' }];
