@@ -1,5 +1,6 @@
 node_modules
 src/userConfig/index.js
+\#*npm-debug-log
 
 # exclude everything inside build
 build/*
