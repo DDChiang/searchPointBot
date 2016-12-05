@@ -3,7 +3,7 @@ const By = webdriver.By; // selector object
 const until = webdriver.until; // 'until' helper object
 
 const { ranNum, ranStr, ranChar } = require('./util');
-const mobile = true;
+const mobile = false;
 let capabilities = {
     browserName: 'chrome'
 };
@@ -171,9 +171,7 @@ const toggleAccount = async () => {
   // MOBILE END
   clickElem(selectors.accountBttn);
 
-  const elem = await driver.wait(elemLocated(selectors.openAccountMenu), 1000);
-  await driver.wait(elemVisible(elem), 2000);
-  clickElem(selectors.toggleAccountBttn);
+  await waitVisibleClick(mobileSelectors.openAccountMenu, 1000, 2000, selectors.toggleAccountBttn);
 
   const signInBttn = await driver.wait(elemLocated(selectors.accountSignInBttn), 3000);
   await driver.wait(elemVisible(signInBttn), 7000);
