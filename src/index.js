@@ -3,7 +3,7 @@ const By = webdriver.By; // selector object
 const until = webdriver.until; // 'until' helper object
 
 const { ranNum, ranStr, ranChar } = require('./util');
-const mobile = false;
+const mobile = true;
 let capabilities = {
     browserName: 'chrome'
 };
@@ -18,7 +18,6 @@ if (mobile) {
       }
     };
 }
-
 
 const driver = new webdriver.Builder()
     .forBrowser('chrome')
@@ -48,7 +47,7 @@ const mobileSelectors = {
     // submitInput: 'input[type="submit"]',
     // passwordInput: 'input[type="password"].form-control',
     // similarities end here
-    menu: '#mHamburger',
+    menuBttn: '#mHamburger',
     accountBttn: '#HBSignIn #hb_n',
     homeAccountBttn: '.shell-header-toggle-menu',
     homeMenuBar: '.shell-header-nav',
@@ -78,6 +77,17 @@ const elemLocated = (elemSelector) => {
 //!!! NOTE: only after element is returned from promise !!!
 const elemVisible = (returnedElem) => {
   return until.elementIsVisible(returnedElem);
+};
+
+const waitVisibleClick = async (elem, timeLocate, timeVisible, elemToClick) => {
+    const elem1 = elem;
+    const t1 = timeLocate || 2000;
+    const t2 = timeVisible || 2000;
+    const elem2 = elemToClick || elem;
+
+    const locatedElem = await driver.wait(elemLocated(elem1), t1);
+    await driver.wait(elemVisible(locatedElem), t2);
+    clickElem(elem2);
 };
 
 // // scroll
@@ -121,7 +131,7 @@ const bingSearch = async () => { // still looking for old
   console.log('presearch');
   clickElem(selectors.searchInput);
 
-  await search(25);
+  await search(2);
 }
 
 const search = async (count) => {
@@ -143,8 +153,22 @@ const search = async (count) => {
 
 // toggle account: logout or login user
 const toggleAccount = async () => {
-    console.log('logout');
+    console.log('time to toggleAccount');
   await driver.sleep(200);
+  // MOBILE START
+  if (mobile) {
+    clickElem(mobileSelectors.menuBttn);
+    driver.sleep(700);
+    await waitVisibleClick(mobileSelectors.accountBttn, 5000, 5000);
+    // home
+    await driver.wait(until.titleIs('Microsoft account | Home'), 2000);
+    await waitVisibleClick(mobileSelectors.homeAccountBttn);
+    await waitVisibleClick(mobileSelectors.homeMenuBar, 2000, 2000, mobileSelectors.homeToggleAccountBttn);
+    await waitVisibleClick(mobileSelectors.signOutBttn);
+
+    return;
+  }
+  // MOBILE END
   clickElem(selectors.accountBttn);
 
   const elem = await driver.wait(elemLocated(selectors.openAccountMenu), 1000);
@@ -153,13 +177,12 @@ const toggleAccount = async () => {
 
   const signInBttn = await driver.wait(elemLocated(selectors.accountSignInBttn), 3000);
   await driver.wait(elemVisible(signInBttn), 7000);
-  console.log('fresh!');
 };
 
 async function go(configList) {
   if (!config.length) {
-    return;
     driver.quit();
+    return;
   }
 
   const currConfig = configList.shift();
@@ -168,7 +191,7 @@ async function go(configList) {
   await bingFlow();
   await bingSearch();
   await toggleAccount();
-  await go(configList); // call function again
+  // await go(configList); // call function again
 };
 
 go(config);
