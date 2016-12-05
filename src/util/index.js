@@ -1,7 +1,7 @@
 const testStr = '0123456789abcdefghijklmnopqrstuvwxyz';
 
 // random # generator
-var ranNum = function(min, max, floor) {
+const ranNum = function(min, max, floor) {
   const randomNumber = Math.random()*(max - min) + min;
 
   if (floor) {
@@ -11,14 +11,14 @@ var ranNum = function(min, max, floor) {
 }
 
 // random character generator
-var ranChar = () => {
+const ranChar = () => {
   const testStrL = testStr.length;
 
   return testStr[ranNum(0, testStrL, true)];
 }
 
 // random string generator
-var ranStr = (min, max) => {
+const ranStr = (min, max) => {
   const strL = ranNum(min, max, true);
   let c;
   let newStr = '';

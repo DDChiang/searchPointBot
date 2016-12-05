@@ -5,26 +5,27 @@ const until = webdriver.until; // 'until' helper object
 const { ranNum, ranStr, ranChar } = require('./util');
 const mobile = false;
 let capabilities = {
-    browserName: 'chrome'
+  browserName: 'chrome'
 };
 
 if (mobile) {
-    capabilities = {
-      browserName: 'chrome',
-      chromeOptions: {
-        mobileEmulation: {
-          deviceName: 'Apple iPhone 5'
-        }
+  capabilities = {
+    browserName: 'chrome',
+    chromeOptions: {
+      mobileEmulation: {
+        deviceName: 'Apple iPhone 5'
       }
-    };
+    }
+  };
 }
 
 const driver = new webdriver.Builder()
-    .forBrowser('chrome')
-    .withCapabilities(capabilities)
-    .build();
+  .forBrowser('chrome')
+  .withCapabilities(capabilities)
+  .build();
 
 const config = require('./userConfig');
+
 const selectors = {
   emailInput: 'input[type="email"]',
   submitInput: 'input[type="submit"]',
@@ -40,18 +41,18 @@ const selectors = {
   openAccountMenu: '.b_idOpen',
   toggleAccountBttn: '.b_toggle',
   accountSignInBttn: '.id_button #id_s'
-}
+};
 
 const mobileSelectors = {
-    menuBttn: '#mHamburger',
-    accountBttn: '#HBSignIn #hb_n',
-    homeAccountBttn: '.shell-header-toggle-menu',
-    homeMenuBar: '.shell-header-nav',
-    homeToggleAccountBttn: '.shell-header-user-mobile-container',
-    signOutBttn: '.msame_Drop_signOut',
-    signedOutPage: '#signed-out-page',
-    newSignInButton: '#sign-in-link'
-}
+  menuBttn: '#mHamburger',
+  accountBttn: '#HBSignIn #hb_n',
+  homeAccountBttn: '.shell-header-toggle-menu',
+  homeMenuBar: '.shell-header-nav',
+  homeToggleAccountBttn: '.shell-header-user-mobile-container',
+  signOutBttn: '.msame_Drop_signOut',
+  signedOutPage: '#signed-out-page',
+  newSignInButton: '#sign-in-link'
+};
 
 /* Utility fns */
 // TODO: Move Helpers Out
@@ -76,14 +77,14 @@ const elemVisible = (returnedElem) => {
 };
 
 const waitVisibleClick = async (elem, timeLocate, timeVisible, elemToClick) => {
-    const elem1 = elem;
-    const t1 = timeLocate || 2000;
-    const t2 = timeVisible || 2000;
-    const elem2 = elemToClick || elem;
+  const elem1 = elem;
+  const t1 = timeLocate || 2000;
+  const t2 = timeVisible || 2000;
+  const elem2 = elemToClick || elem;
 
-    const locatedElem = await driver.wait(elemLocated(elem1), t1);
-    await driver.wait(elemVisible(locatedElem), t2);
-    clickElem(elem2);
+  const locatedElem = await driver.wait(elemLocated(elem1), t1);
+  await driver.wait(elemVisible(locatedElem), t2);
+  clickElem(elem2);
 };
 
 // // scroll
@@ -129,20 +130,20 @@ const bingSearch = async () => { // still looking for old
 }
 
 const search = async (count) => {
-    console.log('search!');
-    let c = count;
-    if (!c) {
-        return;
-    }
-    const elem = await driver.wait(elemLocated(selectors.searchInput), 2000);
-    await driver.wait(elemVisible(elem), 2000);
-    const bingDriver = await driver.sleep(ranNum(100, 500))
-        .then(() => {
-            sendKeys(selectors.searchInput, ranStr(1,2)); // 4
-            clickElem(selectors.submitInput);
-        });
-    --c;
-    await search(c);
+  console.log('search!');
+  let c = count;
+  if (!c) {
+      return;
+  }
+  const elem = await driver.wait(elemLocated(selectors.searchInput), 2000);
+  await driver.wait(elemVisible(elem), 2000);
+  const bingDriver = await driver.sleep(ranNum(100, 500))
+    .then(() => {
+        sendKeys(selectors.searchInput, ranStr(1,2)); // 4
+        clickElem(selectors.submitInput);
+    });
+  --c;
+  await search(c);
 }
 
 // toggle account: logout or login user
