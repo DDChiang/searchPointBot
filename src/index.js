@@ -3,7 +3,7 @@ const By = webdriver.By; // selector object
 const until = webdriver.until; // 'until' helper object
 
 const { ranNum, ranStr, ranChar } = require('./util');
-const mobile = false;
+const mobile = true;
 let capabilities = {
   browserName: 'chrome'
 };
